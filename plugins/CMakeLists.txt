@@ -241,6 +241,12 @@ if(PLUGIN_CLUSTER OR PLUGINS_ALL)
   add_subdirectory(cluster_support)
 endif()
 
+option(PLUGIN_XMMNEWTON "Enable the CLUSTER support plugin" OFF)
+
+if(PLUGIN_XMMNEWTON OR PLUGINS_ALL)
+  add_subdirectory(xmmnewton_support)
+endif()
+
 option(PLUGIN_METEOSAT "Enable the Meteosat (MSG Raw data) support plugin" OFF)
 
 if(PLUGIN_METEOSAT OR PLUGINS_ALL)

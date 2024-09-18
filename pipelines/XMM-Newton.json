@@ -34,7 +34,10 @@
                     "rs_i": 4,
                     "rs_type": "rs239"
                 }
-            }
+            },
+            "products":{ 
+                "xmm_newton_instruments": {} 
+            } 
         }
     }
 }   
