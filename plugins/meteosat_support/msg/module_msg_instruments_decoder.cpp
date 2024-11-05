@@ -98,7 +98,7 @@ namespace meteosat
 
                 if (ImGui::BeginTabItem("Ch 4"))
                 {
-                    ImGui::Image((void *)(intptr_t)seviri_reader->textureID, {200 * ui_scale, 200 * ui_scale});
+                    ImGui::Image((void *)(intptr_t)seviri_reader->textureID, {1080 * ui_scale, 1080 * ui_scale});
                     ImGui::SameLine();
                     ImGui::BeginGroup();
                     ImGui::Button("Status", {200 * ui_scale, 20 * ui_scale});
