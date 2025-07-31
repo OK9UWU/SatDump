@@ -6,6 +6,7 @@
 #include "dvbs/dvbs_reedsolomon.h"
 #include "dvbs/dvbs_scrambling.h"
 #include "dvbs/dvbs_defines.h"
+#include <signal.h>
 
 namespace dvb
 {
@@ -42,6 +43,11 @@ namespace dvb
 
         if (parameters.count("clock_omega_relative_limit") > 0)
             d_clock_omega_relative_limit = parameters["clock_omega_relative_limit"].get<float>();
+
+        if (parameters.count("cmd_path") > 0) {
+            command_path = parameters["cmd_path"].get<std::string>();
+            execute_cmd = 1;
+        }
 
         name = "DVB-S Demodulator (WIP)";
 
@@ -132,6 +138,17 @@ namespace dvb
         int failed_rs_nums = 0;
 
         int dat_size = 0;
+        if (execute_cmd)
+        {
+            PID = fork();
+            if (PID == 0)
+            {
+                logger->info("Executing:" + command_path);
+                setpgid(getpid(), getpid());
+                system(command_path.data());
+            }
+        }
+
         while (demod_should_run())
         {
             // Handle outputs
@@ -248,6 +265,8 @@ namespace dvb
 
         if (output_data_type == DATA_FILE)
             data_out.close();
+        if (execute_cmd)
+            kill(-PID, SIGKILL);
     }
 
     void DVBSDemodModule::drawUI(bool window)

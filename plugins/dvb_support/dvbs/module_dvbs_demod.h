@@ -31,6 +31,8 @@ namespace dvb
         float d_clock_mu = 0.5f;
         float d_clock_gain_mu = 8.7e-3;
         float d_clock_omega_relative_limit = 0.005f;
+        bool execute_cmd;
+        std::string command_path; 
 
         viterbi::Viterbi_DVBS viterbi;
 
@@ -48,6 +50,7 @@ namespace dvb
         void stop();
         void process();
         void drawUI(bool window);
+        pid_t PID;
 
     public:
         static std::string getID();
